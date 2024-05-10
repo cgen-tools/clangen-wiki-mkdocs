@@ -1,7 +1,6 @@
 site_name: Clangen Wiki MkDocs
 theme:
   name: material
-  custom_dir: overrides
 markdown_extensions:
 - toc:
     toc_depth: 4
