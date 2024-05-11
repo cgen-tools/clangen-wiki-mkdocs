@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 import shutil
 import yaml
 
@@ -27,6 +28,20 @@ with open("mkdocs.yml", "w", encoding="utf8") as f:
 
 # copy index.md to /docs
 shutil.copy("index.md", "docs")
+
+r = re.compile(r"\n *[*\-+] ")
+for fname in p.iterdir():
+    if fname.is_dir():
+        continue
+
+    with open(fname, "r", encoding="utf8") as f:
+        fdata = f.read()
+
+    # fix spacing for lists
+    fdata = r.sub(lambda m: f"\n{m.group(0)}", fdata)
+
+    with open(fname, "w", encoding="utf8") as f:
+        f.write(fdata)
 
 # TODO: convert call-outs
 # TODO: fix weird spacing
