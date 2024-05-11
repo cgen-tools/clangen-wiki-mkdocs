@@ -1,0 +1,36 @@
+name: Mirror wiki to GitHub pages
+
+# later, this should be changed to a schedule
+on: [push]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ClanGenOfficial/clangen.wiki
+          path: docs
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Convert docs
+        run: poetry run python convert.py
+      - name: Build
+        run: poetry run mkdocs build
+      - name: Deploy to GitHub pages
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: site/
