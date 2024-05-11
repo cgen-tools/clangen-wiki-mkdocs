@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import yaml
 
 # create navigation with names
@@ -23,6 +24,9 @@ mkdocs_conf["nav"] = [{k: v} for k, v in sorted_name_to_path.items()]
 
 with open("mkdocs.yml", "w", encoding="utf8") as f:
     yaml.dump(mkdocs_conf, f, yaml.Dumper)
+
+# copy index.md to /docs
+shutil.copy("index.md", "docs")
 
 # TODO: convert call-outs
 # TODO: fix weird spacing
