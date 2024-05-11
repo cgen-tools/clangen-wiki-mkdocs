@@ -31,6 +31,7 @@ shutil.copy("index.md", "docs")
 
 r = re.compile(r"\n *[*\-+] ")
 r2 = re.compile(r"#[ ]*TODO:.+")
+r3 = re.compile(r"> \[!([A-Z]+)\] *\n> (.*)")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
@@ -43,6 +44,11 @@ for fname in p.iterdir():
 
     # remove "todo" notes bc they break formatting
     fdata = r2.sub("", fdata)
+
+    # call-outs
+    fdata = r3.sub(lambda m:
+                   f"!!! {m.group(1).lower()}\n    {m.group(2)}",
+                   fdata)
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
