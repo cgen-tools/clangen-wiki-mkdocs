@@ -30,6 +30,7 @@ with open("mkdocs.yml", "w", encoding="utf8") as f:
 shutil.copy("index.md", "docs")
 
 r = re.compile(r"\n *[*\-+] ")
+r2 = re.compile(r"#[ ]*TODO:.+")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
@@ -39,6 +40,9 @@ for fname in p.iterdir():
 
     # fix spacing for lists
     fdata = r.sub(lambda m: f"\n{m.group(0)}", fdata)
+
+    # remove "todo" notes bc they break formatting
+    fdata = r2.sub("", fdata)
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
