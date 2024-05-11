@@ -27,6 +27,7 @@ with open("mkdocs.yml", "w", encoding="utf8") as f:
     yaml.dump(mkdocs_conf, f, yaml.Dumper)
 
 r = re.compile(r"\n *[*\-+] ")
+r_n = re.compile(r"\n *[0-9]. ")
 r2 = re.compile(r"#[ ]*TODO:.+")
 r3 = re.compile(r"> *\[!([A-Z]+)\] *\n> *(.*)")
 for fname in p.iterdir():
@@ -38,6 +39,7 @@ for fname in p.iterdir():
 
     # fix spacing for lists
     fdata = r.sub(lambda m: f"\n{m.group(0)}", fdata)
+    fdata = r_n.sub(lambda m: f"\n{m.group(0)}", fdata)
 
     # remove "todo" notes bc they break formatting
     fdata = r2.sub("", fdata)
