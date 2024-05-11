@@ -28,7 +28,7 @@ with open("mkdocs.yml", "w", encoding="utf8") as f:
 
 r = re.compile(r"\n *[*\-+] ")
 r2 = re.compile(r"#[ ]*TODO:.+")
-r3 = re.compile(r"> \[!([A-Z]+)\] *\n> (.*)")
+r3 = re.compile(r"> *\[!([A-Z]+)\] *\n> *(.*)")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
@@ -46,6 +46,7 @@ for fname in p.iterdir():
     fdata = r3.sub(lambda m:
                    f"!!! {m.group(1).lower()}\n    {m.group(2)}",
                    fdata)
+    #FIXME: multi-line callouts are still broken
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
