@@ -7,7 +7,5 @@ Welcome to the Material for MkDocs mirror of the [Clangen GitHub wiki](https://g
 
 ## Known Issues
 * Links lead to GitHub wiki
-* Some broken lists
 * Broken spacing in blockquotes
 * Broken call-outs
-* Broken table of contents for some pages
