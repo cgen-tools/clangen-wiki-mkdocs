@@ -37,6 +37,17 @@ for fname in p.iterdir():
     with open(fname, "r", encoding="utf8") as f:
         fdata = f.read()
 
+    # force indents to be 4 spaces
+    fdata_new = ""
+    for line in fdata.split("\n"):
+        indent = re.search(r"^ +", line)
+        if indent and indent.end() > 0:
+            new_line = (" " * (4 - indent.end() % 4)) + line + "\n"
+        else:
+            new_line = line + "\n"
+        fdata_new += new_line
+    fdata = fdata_new
+
     # fix spacing for lists
     fdata = r.sub(lambda m: f"\n{m.group(0)}", fdata)
     fdata = r_n.sub(lambda m: f"\n{m.group(0)}", fdata)
