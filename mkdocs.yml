@@ -4,6 +4,7 @@ theme:
 markdown_extensions:
 - toc:
     toc_depth: 4
+    baselevel: 2
 - admonition
 - pymdownx.details
 - pymdownx.superfences
