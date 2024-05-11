@@ -3,6 +3,14 @@ import re
 import shutil
 import yaml
 
+def convert_callouts(m: re.Match) -> str:
+    """Converts matched callouts to Material for MkDocs format."""
+    s = f"!!! {m.group(1).lower()}\n"
+    for i in range(2, len(m.groups())):
+        # hacky way to get >this and > this consistent
+        s += m[i].replace("> ", ">").replace(">", "    ")
+    return s
+
 # create navigation with names
 mkdocs_conf = None
 with open("mkdocs.yml", "r", encoding="utf8") as f:
@@ -29,7 +37,7 @@ with open("mkdocs.yml", "w", encoding="utf8") as f:
 r = re.compile(r"\n *[*\-+] ")
 r_n = re.compile(r"\n *[0-9]. ")
 r2 = re.compile(r"#[ ]*TODO:.+")
-r3 = re.compile(r"> *\[!([A-Z]+)\] *\n> *(.*)")
+r3 = re.compile(r"> *\[!([A-Z]+)\]((?:\n(>.*))*)")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
@@ -56,10 +64,7 @@ for fname in p.iterdir():
     fdata = r2.sub("", fdata)
 
     # call-outs
-    fdata = r3.sub(lambda m:
-                   f"!!! {m.group(1).lower()}\n    {m.group(2)}",
-                   fdata)
-    #FIXME: multi-line callouts are still broken
+    fdata = r3.sub(convert_callouts, fdata)
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
@@ -67,5 +72,4 @@ for fname in p.iterdir():
 # copy index.md to /docs
 shutil.copy("index.md", "docs")
 
-# TODO: convert call-outs
 # TODO: fix weird spacing
