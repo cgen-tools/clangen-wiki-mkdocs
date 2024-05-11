@@ -26,9 +26,6 @@ mkdocs_conf["nav"] = [{k: v} for k, v in sorted_name_to_path.items()]
 with open("mkdocs.yml", "w", encoding="utf8") as f:
     yaml.dump(mkdocs_conf, f, yaml.Dumper)
 
-# copy index.md to /docs
-shutil.copy("index.md", "docs")
-
 r = re.compile(r"\n *[*\-+] ")
 r2 = re.compile(r"#[ ]*TODO:.+")
 r3 = re.compile(r"> \[!([A-Z]+)\] *\n> (.*)")
@@ -52,6 +49,9 @@ for fname in p.iterdir():
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
+
+# copy index.md to /docs
+shutil.copy("index.md", "docs")
 
 # TODO: convert call-outs
 # TODO: fix weird spacing
