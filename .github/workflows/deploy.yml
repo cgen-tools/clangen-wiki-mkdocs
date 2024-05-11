@@ -30,7 +30,9 @@ jobs:
         run: poetry run python convert.py
       - name: Build
         run: poetry run mkdocs build
-      - name: Deploy to GitHub pages
+      - name: Upload page artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: site/
+      - name: Deploy to GitHub pages
+        uses: actions/deploy-pages@v4
