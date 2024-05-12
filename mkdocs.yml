@@ -1,4 +1,5 @@
 site_name: Clangen Wiki MkDocs
+site_url: https://cgen-tools.github.io/clangen-wiki-mkdocs/
 theme:
   name: material
 markdown_extensions:
