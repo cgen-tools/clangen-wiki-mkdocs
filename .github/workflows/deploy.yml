@@ -1,7 +1,12 @@
 name: Mirror wiki to GitHub pages
 
-# later, this should be changed to a schedule
-on: [push]
+on:
+  schedule:
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
 
 jobs:
   build:
