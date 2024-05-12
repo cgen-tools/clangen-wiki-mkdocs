@@ -76,5 +76,3 @@ for fname in p.iterdir():
 
 # copy index.md to /docs
 shutil.copy("index.md", "docs")
-
-# TODO: fix weird spacing
