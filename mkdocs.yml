@@ -2,6 +2,17 @@ site_name: Clangen Wiki MkDocs
 site_url: https://cgen-tools.github.io/clangen-wiki-mkdocs/
 theme:
   name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 markdown_extensions:
 - toc:
     toc_depth: 4
