@@ -39,7 +39,7 @@ r = re.compile(r"\n *[*\-+] ")
 r_n = re.compile(r"\n *[0-9]. ")
 r2 = re.compile(r"#[ ]*TODO:.+")
 r3 = re.compile(r"> *\[!([A-Z]+)\]((?:\n(>.*))*)")
-r4 = re.compile(r"\((https://github.com/ClanGenOfficial/clangen/wiki/)([^#\n]*)(#?.*)\)")
+r4 = re.compile(r"\((https://github.com/ClanGenOfficial/clangen/wiki/)([^#\)]*)(#?[^\)]*)(?=\))\)")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
