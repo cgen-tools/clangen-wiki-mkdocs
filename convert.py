@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 import shutil
+from urllib.parse import unquote
 import yaml
 
 def convert_callouts(m: re.Match) -> str:
@@ -38,6 +39,7 @@ r = re.compile(r"\n *[*\-+] ")
 r_n = re.compile(r"\n *[0-9]. ")
 r2 = re.compile(r"#[ ]*TODO:.+")
 r3 = re.compile(r"> *\[!([A-Z]+)\]((?:\n(>.*))*)")
+r4 = re.compile(r"\((https://github.com/ClanGenOfficial/clangen/wiki/)([^#\n]*)(#?.*)\)")
 for fname in p.iterdir():
     if fname.is_dir():
         continue
@@ -65,6 +67,9 @@ for fname in p.iterdir():
 
     # call-outs
     fdata = r3.sub(convert_callouts, fdata)
+
+    # urls link to mkdocs
+    fdata = r4.sub(lambda m: f"({unquote(m.group(2))}.md{m.group(3)})", fdata)
 
     with open(fname, "w", encoding="utf8") as f:
         f.write(fdata)
