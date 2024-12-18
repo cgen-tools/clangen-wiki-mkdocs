@@ -1,3 +1,6 @@
+> [!WARNING]
+> The GitHub Pages has been unpublished, and this repository will no longer be updated. Please visit https://clangen.io/docs/ for your Clangen documentation needs.
+
 # Clangen Wiki Material for MkDocs
 
 [Clangen wiki](https://github.com/ClanGenOfficial/clangen/wiki) presented via MkDocs.
